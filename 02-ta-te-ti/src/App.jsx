@@ -11,7 +11,7 @@ const Square = ({ children, isSelected, updateBoard, index }) => {
   const className = `square ${isSelected ? "is-selected" : ""}`;
 
   const handleClick = () => {
-    updateBoard();
+    updateBoard(index);
   };
 
   return (
@@ -25,7 +25,16 @@ function App() {
   const [board, setBoard] = useState(Array(9).fill(null));
   const [turn, setTurn] = useState(TURNS.X);
 
-  const updateBoard = () => {
+  const updateBoard = (index) => {
+    // No actualizamos contenido, si ya tiene algo
+    if (board[index]) return;
+
+    // Actualizamos tablero
+    const newBoard = [...board];
+    newBoard[index] = turn;
+    setBoard(newBoard);
+
+    // Cambiamos el turno
     turn === TURNS.X ? setTurn(TURNS.O) : setTurn(TURNS.X);
   };
 
@@ -35,11 +44,9 @@ function App() {
       <section className=" game">
         {board.map((_, index) => {
           return (
-            <Square
-              key={index}
-              index={index}
-              updateBoard={updateBoard}
-            ></Square>
+            <Square key={index} index={index} updateBoard={updateBoard}>
+              {board[index]}
+            </Square>
           );
         })}
       </section>
