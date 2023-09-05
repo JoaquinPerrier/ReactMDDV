@@ -31,11 +31,11 @@ export function App() {
         formatUserName={formatUserName}
       /> */}
 
-      {users.map((user) => {
+      {users.map((user, index) => {
         const { userName, name, isFollowing } = user;
         return (
           <TwitterFollowCard
-            key={userName}
+            key={index}
             userName={userName}
             name={name}
             isFollowing={isFollowing}
