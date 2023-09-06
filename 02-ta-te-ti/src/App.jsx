@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./App.css";
 import { Square } from "./components/Square";
 import { TURNS } from "./constants";
-import { checkWinnerFrom } from "./logic/board";
+import { checkWinnerFrom, checkEndGame } from "./logic/board";
 import { WinnerModal } from "./components/WinnerModal";
 import confetti from "canvas-confetti";
 
@@ -15,12 +15,6 @@ function App() {
     setBoard(Array(9).fill(null));
     setTurn(TURNS.X);
     setWinner(null);
-  };
-
-  const checkEndGame = (newBoard) => {
-    console.log(newBoard);
-    // Revisamos que no haya mas espacios vacios en el tablero
-    return newBoard.every((square) => square !== null);
   };
 
   const updateBoard = (index) => {
