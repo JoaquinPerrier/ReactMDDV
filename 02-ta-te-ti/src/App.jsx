@@ -59,6 +59,12 @@ function App() {
     setWinner(null);
   };
 
+  const checkEndGame = (newBoard) => {
+    console.log(newBoard);
+    // Revisamos que no haya mas espacios vacios en el tablero
+    return newBoard.every((square) => square !== null);
+  };
+
   const updateBoard = (index) => {
     // No actualizamos contenido, si ya tiene algo
     // Y también verificamos que no haya un ganador
@@ -75,12 +81,15 @@ function App() {
     const newWinner = checkWinner(newBoard);
     if (newWinner) {
       setWinner(newWinner);
+    } else if (checkEndGame(newBoard)) {
+      setWinner(false);
     }
   };
 
   return (
     <main className="board">
       <h1>Tic tac toe</h1>
+      <button onClick={resetGame}>Resetear juego</button>
       <section className=" game">
         {board.map((_, index) => {
           return (
