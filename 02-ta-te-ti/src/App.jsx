@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 import { Square } from "./components/Square";
 import { TURNS } from "./constants";
@@ -42,10 +42,6 @@ function App() {
     const newTurn = turn === TURNS.X ? TURNS.O : TURNS.X;
     setTurn(newTurn);
 
-    // Guardar partida
-    window.localStorage.setItem("board", JSON.stringify(newBoard));
-    window.localStorage.setItem("turn", JSON.stringify(newTurn));
-
     const newWinner = checkWinnerFrom(newBoard);
     if (newWinner) {
       confetti();
@@ -54,6 +50,10 @@ function App() {
       setWinner(false);
     }
   };
+
+  /* useEffect(() => {
+    console.log("TEST");
+  });*/
 
   return (
     <main className="board">
