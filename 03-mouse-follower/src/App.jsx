@@ -15,7 +15,9 @@ function App() {
     }
 
     // LIMPIA EL EFECTO
-    return () => {};
+    return () => {
+      window.removeEventListener("pointermove", handleMove);
+    };
   }, [enabled]);
 
   return (
