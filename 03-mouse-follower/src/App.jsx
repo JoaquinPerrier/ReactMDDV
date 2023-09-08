@@ -16,7 +16,10 @@ function App() {
     }
 
     // LIMPIA EL EFECTO
+    // Cuando el componente se desmonta
+    // Cuando cambian las dependencias, antes de ejecutar el efecto de nuevo
     return () => {
+      // Cleaneup method
       window.removeEventListener("pointermove", handleMove);
     };
   }, [enabled]);
