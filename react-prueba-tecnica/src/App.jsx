@@ -8,11 +8,13 @@ export function App() {
   useEffect(() => {
     fetch(CAT_ENDPOINT_RANDOM_FACT)
       .then((res) => res.json())
-      .then((data) => setFact(data.fact));
+      .then((data) => {
+        const { fact } = data;
+        setFact(fact);
 
-    return () => {
-      second;
-    };
+        const firstWord = fact.split(" ")[0];
+        console.log(firstWord);
+      });
   }, []);
 
   return (
