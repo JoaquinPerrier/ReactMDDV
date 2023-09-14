@@ -8,26 +8,29 @@ export function App() {
   const [fact, setFact] = useState();
   const [imageUrl, setImageUrl] = useState();
 
+  // Efecto para recuperar la cita del hecho curioso de gatos
   useEffect(() => {
     fetch(CAT_ENDPOINT_RANDOM_FACT)
       .then((res) => res.json())
       .then((data) => {
         const { fact } = data;
         setFact(fact);
-
-        const firstWord = fact.split(" ")[0];
-
-        fetch(
-          `https://cataas.com/cat/says/${firstWord}?size=50&color=red&json=true`
-        )
-          .then((res) => res.json())
-          .then((response) => {
-            const { url } = response;
-            console.log(url);
-            setImageUrl(url);
-          });
       });
   }, []);
+
+  // Effect para recuperar la imagen con la primer palabra del fact de los gatos
+  useEffect(() => {
+    if (!fact) return;
+    const firstWord = fact.split(" ")[0];
+    fetch(
+      `https://cataas.com/cat/says/${firstWord}?size=50&color=red&json=true`
+    )
+      .then((res) => res.json())
+      .then((response) => {
+        const { url } = response;
+        setImageUrl(url);
+      });
+  }, [fact]);
 
   return (
     <main>
