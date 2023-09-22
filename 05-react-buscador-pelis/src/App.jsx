@@ -7,10 +7,16 @@ function App() {
   const { movies } = useMovies();
   const inputRef = useRef();
 
-  const handleSubmit = () => {
+  const handleSubmit = (event) => {
+    // RECUPERAR USANDO USEREF
     event.preventDefault();
     const value = inputRef.current.value;
-    console.log(value);
+    //console.log(value);
+
+    // RECUPERAR CON FORM DATA
+    const data = new FormData(event.target);
+    const query = data.get("query"); // NOMBRE QUE ESTA EN EL NAME DEL INPUT
+    console.log(query);
   };
 
   return (
@@ -19,6 +25,7 @@ function App() {
       <header>
         <form action="" className="form" onSubmit={handleSubmit}>
           <input
+            name="query"
             ref={inputRef}
             type="text"
             placeholder="Avengers, Star Wars, The Matrix.."
