@@ -3,10 +3,40 @@ import "./App.css";
 import { Movies } from "./components/Movies";
 import { useMovies } from "./hooks/useMovies";
 
+function useSearch() {
+  const [search, updateSearch] = useState("");
+  const [error, setError] = useState(null);
+  const isFirstInput = useRef(true);
+
+  useEffect(() => {
+    if (isFirstInput.current) {
+      isFirstInput.current = search === "";
+      return;
+    }
+
+    if (search === "") {
+      setError("No se puede buscar una pelicula vacia");
+      return;
+    }
+
+    if (search.match(/^\d+$/)) {
+      setError("No se puede buscar una película con un número");
+      return;
+    }
+
+    if (search.length < 3) {
+      setError("La búsqueda debe tener al menos 3 caracteres");
+      return;
+    }
+    setError(null);
+  }, [search]);
+
+  return { search, updateSearch, error };
+}
+
 function App() {
   const { movies } = useMovies();
-  const [query, setQuery] = useState("");
-  const [error, setError] = useState(null);
+  const { search, updateSearch, error } = useSearch();
   const inputRef = useRef();
 
   const handleSubmit = (event) => {
@@ -20,47 +50,14 @@ function App() {
     // RECUPERAR CON FORM DATA
     // const { query } = Object.fromEntries(new FormData(event.target)); // NOMBRE QUE ESTA EN EL NAME DEL INPUT
 
-    console.log({ query });
+    console.log({ search });
   };
 
   const handleChange = (event) => {
     const newQuery = event.target.value;
-    setQuery(newQuery);
-
-    if (newQuery === "") {
-      setError("No se puede buscar una pelicula vacia");
-      return;
-    }
-
-    if (newQuery.match(/^\d+$/)) {
-      setError("No se puede buscar una película con un número");
-      return;
-    }
-
-    if (newQuery.length < 3) {
-      setError("La búsqueda debe tener al menos 3 caracteres");
-      return;
-    }
-    setError(null);
+    if (newQuery.match(" ")) return;
+    updateSearch(newQuery);
   };
-
-  // useEffect(() => {
-  //   if (newQuery === "") {
-  //     setError("No se puede buscar una pelicula vacia");
-  //     return;
-  //   }
-
-  //   if (newQuery.match(/^\d+$/)) {
-  //     setError("No se puede buscar una película con un número");
-  //     return;
-  //   }
-
-  //   if (newQuery.length < 3) {
-  //     setError("La búsqueda debe tener al menos 3 caracteres");
-  //     return;
-  //   }
-  //   setError(null);
-  // }, [query]);
 
   return (
     <div className="page">
@@ -74,7 +71,7 @@ function App() {
             }}
             name="query"
             ref={inputRef}
-            value={query}
+            value={search}
             type="text"
             placeholder="Avengers, Star Wars, The Matrix.."
             onChange={handleChange}
