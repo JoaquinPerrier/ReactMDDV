@@ -35,8 +35,8 @@ function useSearch() {
 }
 
 function App() {
-  const { movies } = useMovies();
   const { search, updateSearch, error } = useSearch();
+  const { movies, getMovies } = useMovies({ search });
   const inputRef = useRef();
 
   const handleSubmit = (event) => {
@@ -50,7 +50,7 @@ function App() {
     // RECUPERAR CON FORM DATA
     // const { query } = Object.fromEntries(new FormData(event.target)); // NOMBRE QUE ESTA EN EL NAME DEL INPUT
 
-    console.log({ search });
+    getMovies();
   };
 
   const handleChange = (event) => {
