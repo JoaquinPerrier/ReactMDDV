@@ -55,7 +55,7 @@ function App() {
 
   const handleChange = (event) => {
     const newQuery = event.target.value;
-    if (newQuery.match(" ")) return;
+    if (newQuery.startsWith(" ")) return;
     updateSearch(newQuery);
   };
 
