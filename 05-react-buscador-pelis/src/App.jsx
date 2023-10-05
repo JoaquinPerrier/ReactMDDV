@@ -51,7 +51,7 @@ function App() {
     // RECUPERAR CON FORM DATA
     // const { query } = Object.fromEntries(new FormData(event.target)); // NOMBRE QUE ESTA EN EL NAME DEL INPUT
 
-    getMovies();
+    getMovies({ search });
   };
 
   const handleChange = (event) => {
