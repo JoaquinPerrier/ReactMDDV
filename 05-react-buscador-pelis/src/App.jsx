@@ -58,6 +58,7 @@ function App() {
     const newQuery = event.target.value;
     if (newQuery.startsWith(" ")) return;
     updateSearch(newQuery);
+    getMovies({ search: newQuery });
   };
 
   const handleSort = () => {
