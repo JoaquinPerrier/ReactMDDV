@@ -3,13 +3,13 @@ import { AddToCartIcon } from "./Icons";
 
 export function Products({ products }) {
   return (
-    <main>
+    <main className="products">
       <ul>
         {products.map((product) => (
           <li key={product.id}>
             <img src={product.thumbnail} alt={product.title} />
             <div>
-              <strong>{product.title}</strong>
+              <strong>{product.title}</strong> - ${product.price}
             </div>
             <div>
               <button>
