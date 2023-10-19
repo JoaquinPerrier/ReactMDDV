@@ -1,9 +1,9 @@
 import { Filters } from "./Filters";
 
-export function Header() {
+export function Header({ changeFilters }) {
   return (
     <header>
-      <Filters />
+      <Filters onChange={changeFilters} />
       <h1>React Shop </h1>
     </header>
   );
