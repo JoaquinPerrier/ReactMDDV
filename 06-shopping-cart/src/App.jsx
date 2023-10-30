@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Products } from "./components/Products";
 import { products as initialProducts } from "./mocks/products.json";
 import { Header } from "./components/Header";
+import { Footer } from "./components/Footer";
 
 function useFilters() {
   const [filters, setFilters] = useState({
@@ -18,12 +19,12 @@ function useFilters() {
     });
   };
 
-  return { filterProducts, setFilters };
+  return { filterProducts, setFilters, filters };
 }
 
 function App() {
   const [products] = useState(initialProducts);
-  const { filterProducts, setFilters } = useFilters();
+  const { filterProducts, setFilters, filters } = useFilters();
 
   const filteredProducts = filterProducts(products);
 
@@ -31,6 +32,7 @@ function App() {
     <>
       <Header changeFilters={setFilters} />
       <Products products={filteredProducts} />
+      <Footer filters={filters} />
     </>
   );
 }
