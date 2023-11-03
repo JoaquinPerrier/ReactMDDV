@@ -15,8 +15,19 @@ export function CartProvider({ children }) {
       // SI EL PRODUCTO YA ESTÁ EN EL CARRITO
       const newCart = structuredClone(cart);
       newCart[productInCartIndex].quantity += 1;
+      setCart(newCart);
     }
+
+    // SI EL PRODUCTO NO ESTÁ EN EL CARRITO
+    setCart((prevState) => [
+      ...prevState,
+      {
+        product,
+        quantity: 1,
+      },
+    ]);
   };
+
   const clearCart = () => {
     setCart([]);
   };
