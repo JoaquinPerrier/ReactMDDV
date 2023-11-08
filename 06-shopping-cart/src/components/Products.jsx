@@ -3,7 +3,7 @@ import { AddToCartIcon, RemoveFromCartIcon } from "./Icons";
 import { useCart } from "../hooks/useCart";
 
 export function Products({ products }) {
-  const { addToCart, cart } = useCart();
+  const { addToCart, cart, removeFromCart } = useCart();
 
   // Para ver los cambios
   const checkProductInCart = (product) => {
@@ -23,7 +23,13 @@ export function Products({ products }) {
                 <strong>{product.title}</strong> - ${product.price}
               </div>
               <div>
-                <button onClick={() => addToCart(product)}>
+                <button
+                  onClick={() =>
+                    isProductInCart
+                      ? removeFromCart(product)
+                      : addToCart(product)
+                  }
+                >
                   {isProductInCart ? <RemoveFromCartIcon /> : <AddToCartIcon />}
                 </button>
               </div>
