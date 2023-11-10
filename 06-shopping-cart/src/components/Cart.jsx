@@ -4,7 +4,7 @@ import { ClearCartIcon, RemoveFromCartIcon, CartIcon } from "./Icons";
 import { useCart } from "../hooks/useCart";
 
 export function Cart() {
-  const { clearCart } = useCart();
+  const { clearCart, cart } = useCart();
   const cartCheckbocId = useId();
 
   return (
